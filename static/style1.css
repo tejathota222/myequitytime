@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f7f7f7;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+h1 {
+    text-align: center;
+}
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.controls label {
+    margin-right: 10px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Progress bar */
+#progressContainer {
+    width: 100%;
+    background: #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+#progressFill {
+    width: 0%;
+    height: 20px;
+    background: #4CAF50;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+/* Buy/Sell row coloring */
+tr.buy {
+    background-color: #e6ffed;
+}
+tr.sell {
+    background-color: #ffe6e6;
+}
+
+/* Blinking effect for Signal */
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+.signal-blink {
+    animation: blink 1s infinite;
+    font-weight: bold;
+}
+
+/* Countdown timer styling */
+#countdownTimer {
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #333;
+}
+/* Summary chart styling */
+#summaryChart {
+    max-width: 500px;
+    max-height: 400px;
+    margin: 20px auto;
+    display: block;
+}

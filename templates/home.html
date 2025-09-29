@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>MY EQUITY TIME</h1>
+<h2>One place for analysis 📊</h2>
+
+{% for n in news %}
+<div class="news-card">
+    {% if n['image'] %}
+    <div class="news-image">
+        <img src="{{ n['image'] }}" alt="{{ n['title'] }}">
+    </div>
+    {% endif %}
+    <div class="news-content">
+        <h3><a href="{{ url_for('show_news', news_id=n['id']) }}">{{ n['title'] }}</a></h3>
+        <p><strong>{{ n['date'] }}</strong> – {{ n['summary'] }}</p>
+    </div>
+</div>
+{% else %}
+<p>No news available.</p>
+{% endfor %}
+{% endblock %}
+
+

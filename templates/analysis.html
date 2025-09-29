@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="container">
+        <h1>📊 Nifty 50 Stock Analysis</h1>
+        <p>This app analyzes price patterns for Nifty 50 stocks since 2008. It calculates the percentage of days where different price conditions occurred.</p>
+        
+        <div class="controls">
+            <label>Start Date: <input type="date" id="startDate" value="2008-01-01"></label>
+            <label><input type="checkbox" id="showProgress" checked> Show Progress</label>
+            <label><input type="checkbox" id="autoRefresh"> Auto-refresh</label>
+            <label>Interval (minutes): <input type="number" id="refreshInterval" value="15" min="1" max="60"></label>
+            <button onclick="runAnalysis()">Run Analysis</button>
+            <button onclick="downloadCSV()">Download CSV</button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progressContainer">
+             <div id="progressFill"></div>
+        </div>
+        <p id="progressText">Progress will appear here...</p>
+        <p id="countdownTimer">Next refresh: N/A</p>
+
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>High&gt;Open&gt;Low%</th>
+                    <th>High=Open&gt;Low%</th>
+                    <th>Low&lt;Open%</th>
+                    <th>Low=Open%</th>
+                    <th>High&gt;Open%</th>
+                    <th>High=Open%</th>
+                    <th>Signal</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!-- Summary Chart (Initially hidden) -->
+        <h2 id="summaryTitle" style="display:none;">📊 Summary Chart</h2>
+        <canvas id="summaryChart" style="display:none;"></canvas>
+        <button id="downloadChartBtn" onclick="downloadChartImage()" style="display:none;">Download Chart Image</button>
+
+        
+        <h2>📖 Metrics Explanation</h2>
+        <ul>
+            <li><b>High&gt;Open&gt;Low%</b>: Days where High &gt; Open &gt; Low</li>
+            <li><b>High=Open&gt;Low%</b>: Days where High = Open &gt; Low</li>
+            <li><b>Low&lt;Open%</b>: Days where Low &lt; Open</li>
+            <li><b>Low=Open%</b>: Days where Low = Open</li>
+            <li><b>High&gt;Open%</b>: Days where High &gt; Open</li>
+            <li><b>High=Open%</b>: Days where High = Open</li>
+            <li><b>Signal</b>: BUY if High&gt;Open% > Low&lt;Open%, else SELL</li>
+        </ul>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+
+{% endblock %}
+
+

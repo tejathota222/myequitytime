@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "My Finance Site" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <a href="{{ url_for('home') }}">🏠 Home</a>
+    <a href="{{ url_for('home') }}">📰 Latest News</a>
+
+    <!-- Dropdown starts -->
+    <div class="dropdown">
+    <span class="dropbtn">📊 Analysis ▾</span>
+    <div class="dropdown-content">
+        <a href="{{ url_for('stock_analysis') }}">Stock Analysis</a>
+        <a href="{{ url_for('time_series') }}">Time Series Analysis</a>
+        <a href="{{ url_for('market_prediction') }}">Regression Fit</a>
+    </div>
+</div>
+
+    <!-- Dropdown ends -->
+
+    <a href="{{ url_for('math_area') }}">➗ Math Area</a>
+    <!-- Research & Thesis Help Button -->
+
+
+    <!-- ⏳ Clock on the right -->
+    <span id="clock" class="nav-clock"></span>
+    <div class="counter-container">
+    Visitors:
+    <span id="visitorCounter" class="counter">1000</span>
+</div>
+
+</nav>
+
+<!-- Main layout with sidebars -->
+<main>
+    {% if sidebar is defined and sidebar %}
+        <!-- Left Sidebar -->
+        <aside class="sidebar left">
+            <h3>📈 Market Snapshot</h3>
+            {% for k,v in sidebar['market_snapshot'].items() %}
+                <p>{{ k }}: {{ v }}</p>
+            {% endfor %}
+            <hr>
+            <h3>🔔 Alerts</h3>
+            <ul>
+                {% for a in sidebar['alerts'] %}
+                    <li>{{ a }}</li>
+                {% endfor %}
+            </ul>
+        </aside>
+    {% endif %}
+
+    <!-- Central Content -->
+    <section class="content-area">
+        {% block content %}{% endblock %}
+    </section>
+
+    {% if sidebar is defined and sidebar %}
+        <!-- Right Sidebar -->
+        <aside class="sidebar right">
+            <h3>📰 Quick Updates <span class="blink-new">NEW</span></h3>
+            <ul>
+                {% for u in sidebar['quick_updates'] %}
+                    <li>{{ u }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h3>💡 Analysis Tip</h3>
+            <p>{{ sidebar['analysis_tip'] }}</p>
+        </aside>
+    {% endif %}
+</main>
+
+
+<script>
+function updateClock() {
+    const now = new Date();
+    const hr   = String(now.getHours()).padStart(2, '0');
+    const min  = String(now.getMinutes()).padStart(2, '0');
+    const sec  = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = `${hr}:${min}:${sec}`;
+}
+setInterval(updateClock, 1000);
+updateClock(); // initial call
+
+
+// Animate number increment
+function animateCounter(element, newValue) {
+    let current = parseInt(element.textContent);
+    const stepTime = 50;       // ms per step
+    const steps = 20;
+    const increment = (newValue - current) / steps;
+    let step = 0;
+    const timer = setInterval(() => {
+        step++;
+        current += increment;
+        element.textContent = Math.floor(current);
+        if(step >= steps){
+            element.textContent = newValue;
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
+
+const visitorElement = document.getElementById('visitorCounter');
+
+// Increase every 15 minutes (15 * 60 * 1000 ms)
+setInterval(() => {
+    let current = parseInt(visitorElement.textContent);
+    let newValue = current + 1;
+    animateCounter(visitorElement, newValue);
+}, 15 * 60 * 1000);
+
+</script>
+</body>
+<footer style="text-align:center; padding:15px; background:#f2f2f2; margin-top:30px; font-size:0.9rem; color:#555;">
+    &copy; {{ current_year if current_year else "2025" }} Myequitytime. All Rights Reserved.
+</footer>
+
+</html>

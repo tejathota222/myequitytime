@@ -1,0 +1,264 @@
+/* ---------- Base Styles ---------- */
+body { 
+    font-family: Arial, sans-serif; 
+    background:#f8f8f8; 
+    margin:0; 
+}
+
+nav { 
+    background:#222; 
+    padding:10px; 
+    text-align:center; 
+}
+
+nav a { 
+    color:#fff; 
+    margin:0 15px; 
+    text-decoration:none; 
+}
+
+nav a:hover { 
+    text-decoration:underline; 
+}
+
+/* ---------- Main Layout (Flexbox) ---------- */
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Sidebars */
+.sidebar {
+    width: 220px;
+    padding: 15px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #f6f0ff, #ece4f9);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #6a1b9a;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #d1b3ff;
+    padding-bottom: 4px;
+}
+
+/* Left Sidebar (Alerts, Market Snapshot) */
+.sidebar.left ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar.left ul li::before {
+    content: "⚡ ";
+    color: #9b59b6;
+}
+
+/* Right Sidebar */
+.sidebar.right {
+    border-left: 3px solid #9b59b6;
+}
+
+/* Header with blinking NEW badge */
+.sidebar.right h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blink-new {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: #e74c3c;
+    padding: 2px 8px;
+    border-radius: 12px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+
+/* Quick update items */
+.sidebar.right ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.sidebar.right ul li {
+    background: #fff;
+    margin: 8px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sidebar.right ul li:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.sidebar.right ul li::before {
+    content: "🆕";
+    font-size: 1rem;
+}
+
+/* ---------- Central Content ---------- */
+.content-area {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ---------- News Cards ---------- */
+.news-card {
+    display: flex;              
+    flex-direction: row;        
+    background: #fff;
+    margin: 15px auto;
+    max-width: 700px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.news-image {
+    flex: 0 0 200px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.news-content {
+    padding: 15px;
+    flex: 1;
+}
+
+.news-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.2rem;
+    color: #007BFF;
+}
+
+.news-content h3 a {
+    text-decoration: none;
+}
+
+.news-content h3 a:hover {
+    text-decoration: underline;
+}
+
+.news-content p {
+    margin: 5px 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* ---------- Tables ---------- */
+table { 
+    width:95%; 
+    margin:auto; 
+    border-collapse: collapse; 
+    background:#fff; 
+}
+th,td { 
+    border:1px solid #ddd; 
+    padding:6px; 
+    text-align:center; 
+}
+th { 
+    background:#007BFF; 
+    color:white; 
+}
+
+/* ---------- Dropdown Menu ---------- */
+.dropdown {
+    display: inline-block;          
+    position: relative;
+}
+.dropbtn {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    padding: 0;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    min-width: 180px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    text-align: left;
+}
+.dropdown-content a {
+    display: block;
+    color: #fff;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    background: #444;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ---------- Clock & Visitor Counter ---------- */
+.nav-clock {
+    float: right;
+    color: #00FFCC;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 0 10px;
+}
+
+.counter-container {
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 16px;
+    background: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 0 5px #FFD700;
+    margin-top: 4px;
+}
+
+.counter {
+    display: inline-block;
+    min-width: 40px;
+    text-align: right;
+}
+
+

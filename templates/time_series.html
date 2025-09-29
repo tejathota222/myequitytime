@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+.coming-soon-container {
+    text-align: center;
+    padding: 100px 20px;
+    color: #555;
+}
+
+.coming-soon-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.coming-soon-container p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+.spinner {
+    margin: 0 auto 30px;
+    width: 80px;
+    height: 80px;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.dots {
+    font-size: 2rem;
+    letter-spacing: 5px;
+}
+
+.dot {
+    display: inline-block;
+    opacity: 0;
+    animation: blink 1s infinite;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.3s; }
+.dot:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes blink {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="coming-soon-container">
+    <h1>⏳ Time Series Analysis</h1>
+    <p>This section is coming soon! We’re working on advanced stock analysis tools for you.</p>
+
+    <!-- Spinning loader -->
+    <div class="spinner"></div>
+
+    <!-- Animated dots -->
+    <div class="dots">
+        <span class="dot">.</span>
+        <span class="dot">.</span>
+        <span class="dot">.</span>
+    </div>
+
+    <p style="margin-top:30px; color:#888;">Stay tuned for updates!</p>
+</div>
+{% endblock %}

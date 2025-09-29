@@ -1,0 +1,11 @@
+Flask>=2.3.0
+pandas>=2.0.0
+numpy>=1.25.0
+yfinance>=0.2.33
+plotly>=6.0.0
+requests>=2.34.0
+python-dateutil>=2.9.0
+pytz>=2023.3
+lxml>=4.9.3
+html5lib>=1.1
+

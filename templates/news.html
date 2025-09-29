@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<style>
+  .news-article {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .news-article img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+  }
+  .news-content {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 10px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+  .news-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .news-content::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 5px;
+  }
+
+  /* Other news cards */
+  .other-news {
+    margin-top: 40px;
+  }
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .news-card {
+    background: #fafafa;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .news-card:hover {
+    transform: translateY(-5px);
+  }
+  .news-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .news-card h3 {
+    font-size: 1rem;
+    margin: 10px;
+  }
+  /* .news-card p {
+    font-size: 0.9rem;
+    margin: 0 10px 10px;
+    color: #555;
+  } */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="news-article">
+  <img src="{{ article['image'] }}" alt="{{ article['title'] }}">
+  <h2>{{ article['title'] }}</h2>
+  <p><em>{{ article['date'] }}</em></p>
+  <div class="news-content">
+    <p>{{ article['content'] }}</p>
+  </div>
+
+  <button id="likeBtn">👍 Like (<span id="likeCount">{{ likes }}</span>)</button>
+</div>
+
+<!-- Other news cards -->
+<div class="other-news">
+  <h2>📰 More News</h2>
+  <div class="card-container">
+  {% for n in news if n['id'] != article['id'] %}
+  <a href="{{ url_for('show_news', news_id=n['id']) }}" class="news-card">
+    <img src="{{ n['image'] }}" alt="{{ n['title'] }}">
+    <h3>{{ n['title'] }}</h3>
+    <p>{{ n['summary'] }}</p>
+  </a>
+  {% endfor %}
+</div>
+
+</div>
+
+<script>
+document.getElementById("likeBtn").onclick = () => {
+  fetch("/like/{{ article['id'] }}", {method:"POST"})
+    .then(r => r.json())
+    .then(d => document.getElementById("likeCount").textContent = d.likes);
+};
+</script>
+{% endblock %}
+
+
