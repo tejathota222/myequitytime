@@ -8,4 +8,5 @@ python-dateutil>=2.9.0
 pytz>=2023.3
 lxml>=4.9.3
 html5lib>=1.1
-
+gunicorn==21.2.0
+Werkzeug>=2.3.7
