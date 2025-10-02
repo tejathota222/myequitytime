@@ -32,6 +32,7 @@ def load_news():
 def home():
     news = load_news()
     sidebar = load_sidebar()
+    sidebar["market_snapshot"] = get_market_snapshot()
     return render_template("home.html", news=news, sidebar=sidebar)
 
 @app.route("/news/<int:news_id>")
@@ -165,6 +166,78 @@ def market_prediction():
 @app.route("/math")
 def math_area():
     return render_template("math.html")
+
+
+@app.route("/api/nifty_ticker")
+def nifty_ticker():
+    try:
+        data = yf.download(tickers=nifty_50, period="2d", group_by='ticker', threads=True, progress=False)
+        result = []
+
+        for symbol in nifty_50:
+            hist = data.get(symbol)
+            if hist is not None and len(hist) >= 2:
+                prev = hist['Close'].iloc[-2] if not pd.isna(hist['Close'].iloc[-2]) else hist['Close'].iloc[-1]
+                latest = hist['Close'].iloc[-1] if not pd.isna(hist['Close'].iloc[-1]) else prev
+                change = round(latest - prev, 2)
+                arrow = "▲" if change > 0 else "▼" if change < 0 else ""
+                color = "green" if change > 0 else "red" if change < 0 else "white"
+            else:
+                latest = 0.0
+                change = 0.0
+                arrow = ""
+                color = "white"
+
+            result.append({
+                "symbol": symbol.split('.')[0],
+                "price": float(latest),
+                "change": float(change),
+                "arrow": arrow,
+                "color": color
+            })
+
+        return jsonify(result)
+
+    except Exception as e:
+        print("Error fetching Nifty data:", e)
+        # Return fallback data to avoid empty ticker
+        fallback = [{"symbol": s.split('.')[0], "price": 0.0, "change": 0.0, "arrow": "", "color": "white"} for s in nifty_50]
+        return jsonify(fallback)
+
+
+def get_market_snapshot():
+    snapshot = {}
+    try:
+        # Fetch last 2 candles (1-minute interval)
+        sensex_data = yf.Ticker("^BSESN").history(period="1d", interval="1m").tail(2)
+        nifty_data  = yf.Ticker("^NSEI").history(period="1d", interval="1m").tail(2)
+
+        def format_with_change(df):
+            if len(df) < 2:
+                return f"{df['Close'].iloc[-1]:,.2f}"
+            latest = df['Close'].iloc[-1]
+            prev   = df['Close'].iloc[-2]
+            diff   = latest - prev
+            arrow  = "▲" if diff > 0 else "▼" if diff < 0 else "⏺"
+            return f"{latest:,.2f} {arrow} {abs(diff):.2f}"
+
+        snapshot["Sensex"] = format_with_change(sensex_data)
+        snapshot["Nifty"]  = format_with_change(nifty_data)
+        snapshot["USD/INR"] = "82.20"  # static or add API if needed
+
+    except Exception as e:
+        print("Error fetching market data:", e)
+        snapshot = {
+            "Sensex": "N/A",
+            "Nifty": "N/A",
+            "USD/INR": "N/A"
+        }
+    return snapshot
+
+@app.route("/api/market_snapshot")
+def market_snapshot():
+    return jsonify(get_market_snapshot())
+
 
 if __name__ == "__main__":
     app.run(debug=True)

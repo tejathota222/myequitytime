@@ -7,6 +7,7 @@
 </head>
 <body>
 <nav>
+    
     <a href="{{ url_for('home') }}">🏠 Home</a>
     <a href="{{ url_for('home') }}">📰 Latest News</a>
 
@@ -34,6 +35,14 @@
 </div>
 
 </nav>
+<!-- Scrolling Ticker -->
+<div class="ticker-wrapper">
+    <div class="ticker" id="stock-ticker">
+        Loading stock data...
+    </div>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
 
 <!-- Main layout with sidebars -->
 <main>
@@ -115,6 +124,36 @@ setInterval(() => {
     animateCounter(visitorElement, newValue);
 }, 15 * 60 * 1000);
 
+</script>
+<script>
+function updateMarketSnapshot() {
+    fetch("/api/market_snapshot")
+        .then(response => response.json())
+        .then(data => {
+            const container = document.querySelector(".sidebar.left");
+            if (!container) return;
+
+            let html = "<h3>📈 Market Snapshot</h3>";
+            for (let key in data) {
+                let value = data[key];
+                let arrowMatch = value.match(/[▲▼]/);
+                if (arrowMatch) {
+                    let color = arrowMatch[0] === "▲" ? "green" : "red";
+                    value = value.replace(arrowMatch[0], `<span style="color:${color}; font-weight:bold;">${arrowMatch[0]}</span>`);
+                }
+                html += `<p>${key}: ${value}</p>`;
+            }
+
+            // Replace only the Market Snapshot section
+            const h3 = container.querySelector("h3");
+            if (h3) h3.outerHTML = html;
+        })
+        .catch(err => console.error("Error fetching snapshot:", err));
+}
+
+// Refresh every 30 seconds
+setInterval(updateMarketSnapshot, 30000);
+updateMarketSnapshot(); // initial load
 </script>
 </body>
 <footer style="text-align:center; padding:15px; background:#f2f2f2; margin-top:30px; font-size:0.9rem; color:#555;">

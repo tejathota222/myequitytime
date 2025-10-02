@@ -95,3 +95,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+const tickerDiv = document.getElementById("stock-ticker");
+let scrollPos = 0;
+let tickerParts = []; // store latest valid stock strings
+
+// Fetch stock data
+async function fetchTickerData() {
+    try {
+        const res = await fetch("/api/nifty_ticker");
+        const stocks = await res.json();
+
+        if (!stocks || stocks.length === 0) {
+            console.warn("No stock data");
+            return;
+        }
+
+        // Filter valid stocks
+        const validStocks = stocks.filter(stock => typeof stock.price === "number" && stock.price > 0);
+        if (validStocks.length === 0) return;
+
+        // Build ticker parts
+        tickerParts = validStocks.map(stock => {
+            let price = stock.price.toFixed(2);
+            let change = (typeof stock.change === "number" && !isNaN(stock.change)) ? stock.change.toFixed(2) : "–";
+            let arrow = stock.arrow || "";
+            let color = stock.color || "white";
+            return `${stock.symbol}: ${price} <span style="color:${color}">${arrow}${change}</span>`;
+        });
+
+        // Combine and duplicate for smooth scrolling
+        tickerDiv.innerHTML = tickerParts.join("  |  ") + "  |  " + tickerParts.join("  |  ");
+
+    } catch (err) {
+        console.error("Error fetching ticker:", err);
+    }
+}
+
+function animateTicker() {
+    if (!tickerContent) return;
+
+    scrollPos -= 0.01; // super slow, readable
+    if (Math.abs(scrollPos) >= tickerDiv.scrollWidth / 2) scrollPos = 0;
+
+    tickerDiv.style.transform = `translateX(${scrollPos}px)`;
+
+    requestAnimationFrame(animateTicker);
+}
+
+// Start ticker
+fetchTickerData();                     // initial fetch
+setInterval(fetchTickerData, 15000);  // refresh every 15s without jumping
+animateTicker();
