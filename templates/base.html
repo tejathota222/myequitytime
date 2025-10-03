@@ -12,28 +12,32 @@
 
     <!-- Dropdown starts -->
     <div class="dropdown">
-    <span class="dropbtn">📊 Analysis ▾</span>
-    <div class="dropdown-content">
-        <a href="{{ url_for('stock_analysis') }}">Stock Analysis</a>
-        <a href="{{ url_for('time_series') }}">Time Series Analysis</a>
-        <a href="{{ url_for('market_prediction') }}">Regression Fit</a>
+        <span class="dropbtn">📊 Analysis ▾</span>
+        <div class="dropdown-content">
+            <a href="{{ url_for('stock_analysis') }}">Stock Analysis</a>
+            <a href="{{ url_for('time_series') }}">Time Series Analysis</a>
+            <a href="{{ url_for('market_prediction') }}">Regression Fit</a>
+            <!-- Link example -->
+            <a href="https://lstmt.onrender.com/" target="_blank" rel="noopener noreferrer">LSMT Forecast (Trial)</a>
+        </div>
     </div>
-</div>
-
     <!-- Dropdown ends -->
 
     <a href="{{ url_for('math_area') }}">➗ Math Area</a>
-    <!-- Research & Thesis Help Button -->
-
 
     <!-- ⏳ Clock on the right -->
     <span id="clock" class="nav-clock"></span>
-    <div class="counter-container">
-    Visitors:
-    <span id="visitorCounter" class="counter">1000</span>
-</div>
 
+    <!-- Visitor Counter -->
+    <div class="counter-container">
+        Visitors: <span id="visitorCounter" class="counter">1000</span>
+    </div>
 </nav>
+
+<!-- Scrolling Ticker -->
+<div class="ticker-wrapper">
+    <div class="ticker" id="ticker">Loading stock data...</div>
+</div>
 
 <!-- Main layout with sidebars -->
 <main>
@@ -75,7 +79,7 @@
     {% endif %}
 </main>
 
-
+<!-- Clock + Counter -->
 <script>
 function updateClock() {
     const now = new Date();
@@ -85,14 +89,11 @@ function updateClock() {
     document.getElementById('clock').textContent = `${hr}:${min}:${sec}`;
 }
 setInterval(updateClock, 1000);
-updateClock(); // initial call
+updateClock();
 
-
-// Animate number increment
 function animateCounter(element, newValue) {
     let current = parseInt(element.textContent);
-    const stepTime = 50;       // ms per step
-    const steps = 20;
+    const stepTime = 50, steps = 20;
     const increment = (newValue - current) / steps;
     let step = 0;
     const timer = setInterval(() => {
@@ -105,20 +106,91 @@ function animateCounter(element, newValue) {
         }
     }, stepTime);
 }
-
 const visitorElement = document.getElementById('visitorCounter');
-
-// Increase every 15 minutes (15 * 60 * 1000 ms)
 setInterval(() => {
     let current = parseInt(visitorElement.textContent);
-    let newValue = current + 1;
-    animateCounter(visitorElement, newValue);
+    animateCounter(visitorElement, current + 1);
 }, 15 * 60 * 1000);
-
 </script>
-</body>
+
+<!-- 📊 Market Snapshot Auto-refresh -->
+<script>
+function updateMarketSnapshot() {
+    fetch("/api/market_snapshot")
+        .then(res => res.json())
+        .then(data => {
+            const container = document.querySelector(".sidebar.left");
+            if (!container) return;
+
+            // Clear old content first
+            let html = "<h3>📈 Market Snapshot</h3>";
+            for (let key in data) {
+                let value = data[key];
+                let arrowMatch = value.match(/[▲▼]/);
+                if (arrowMatch) {
+                    let color = arrowMatch[0] === "▲" ? "green" : "red";
+                    value = value.replace(
+                        arrowMatch[0],
+                        `<span style="color:${color}; font-weight:bold;">${arrowMatch[0]}</span>`
+                    );
+                }
+                html += `<p>${key}: ${value}</p>`;
+            }
+
+            // 🔑 overwrite only the snapshot section
+            container.innerHTML = html + "<hr>" + container.innerHTML.split("<hr>")[1];
+        })
+        .catch(err => {
+            console.error("Snapshot fetch error:", err);
+        });
+}
+
+setInterval(updateMarketSnapshot, 30000);
+updateMarketSnapshot();
+</script>
+
+
+<!-- 🔄 Ticker Auto-refresh -->
+<script>
+const tickerDiv = document.getElementById("ticker");
+let tickerParts = [];
+
+async function fetchTickerData() {
+    try {
+        const res = await fetch("/api/nifty_ticker");
+        const stocks = await res.json();
+
+        if (!stocks || stocks.length === 0) {
+            // No new data, keep last values (do not overwrite)
+            return;
+        }
+
+        // Use stocks with price > 0 if available, else fallback to all stocks
+        const validStocks = stocks.filter(stock => typeof stock.price === "number" && stock.price > 0);
+        const displayStocks = validStocks.length > 0 ? validStocks : stocks;
+
+        tickerParts = displayStocks.map(stock => {
+            let price = (stock.price && stock.price > 0) ? stock.price.toFixed(2) : "–";
+            let change = (typeof stock.change === "number" && !isNaN(stock.change)) ? stock.change.toFixed(2) : "–";
+            let arrow = stock.arrow || "";
+            let color = stock.color || "white";
+            return `${stock.symbol}: ${price} <span style="color:${color}">${arrow}${change}</span>`;
+        });
+
+        tickerDiv.innerHTML = tickerParts.join("  |  ") + "  |  " + tickerParts.join("  |  ");
+    } catch (err) {
+        console.error("Ticker fetch error:", err);
+        // Keep last values, do not overwrite
+    }
+}
+
+fetchTickerData();
+setInterval(fetchTickerData, 30000);
+</script>
+
 <footer style="text-align:center; padding:15px; background:#f2f2f2; margin-top:30px; font-size:0.9rem; color:#555;">
     &copy; {{ current_year if current_year else "2025" }} Myequitytime. All Rights Reserved.
 </footer>
-
+</body>
 </html>
+

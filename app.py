@@ -2,12 +2,13 @@ import json, os, time, io
 from flask import Flask, render_template, request, jsonify, send_file
 import yfinance as yf
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, time as dtime
 from io import StringIO
 from io import BytesIO 
 from flask import Response
 import json
 import time
+import pytz
 
 
 app = Flask(__name__)
@@ -15,6 +16,12 @@ app = Flask(__name__)
 NEWS_FILE = "news.json"
 LIKES = {}  # simple in-memory like counter
 
+IST = pytz.timezone("Asia/Kolkata")
+
+
+def is_market_open():
+    now = datetime.now(IST).time()
+    return dtime(9, 15) <= now <= dtime(15, 30)
 
 def load_sidebar():
     with open("static/data/sidebar.json", encoding="utf-8") as f:
@@ -32,6 +39,7 @@ def load_news():
 def home():
     news = load_news()
     sidebar = load_sidebar()
+    sidebar["market_snapshot"] = get_market_snapshot()
     return render_template("home.html", news=news, sidebar=sidebar)
 
 @app.route("/news/<int:news_id>")
@@ -61,6 +69,111 @@ nifty_50 = [
     "TCS.NS", "TATACONSUM.NS", "TATAMOTORS.NS", "TATASTEEL.NS", "TECHM.NS",
     "TITAN.NS", "UPL.NS", "ULTRACEMCO.NS", "WIPRO.NS", "PFC.NS"
 ]
+
+last_snapshot = {}
+
+def get_market_snapshot():
+    global last_snapshot
+    try:
+        if is_market_open():
+            sensex_data = yf.Ticker("^BSESN").history(period="1d", interval="1m").tail(2)
+            nifty_data  = yf.Ticker("^NSEI").history(period="1d", interval="1m").tail(2)
+
+            def format_with_change(df):
+                if len(df) < 2:
+                    return f"{df['Close'].iloc[-1]:,.2f}"
+                latest = df['Close'].iloc[-1]
+                prev   = df['Close'].iloc[-2]
+                diff   = latest - prev
+                arrow  = "▲" if diff > 0 else "▼" if diff < 0 else "⏺"
+                return f"{latest:,.2f} {arrow} {abs(diff):.2f}"
+
+            snapshot = {
+                "Sensex": format_with_change(sensex_data),
+                "Nifty": format_with_change(nifty_data),
+                "USD/INR": "82.20"
+            }
+            last_snapshot = snapshot
+            return snapshot
+        else:
+            # After 3:30 → keep last known snapshot
+            return last_snapshot if last_snapshot else {
+                "Sensex": "Market Closed",
+                "Nifty": "Market Closed",
+                "USD/INR": "82.20"
+            }
+    except Exception as e:
+        print("Error fetching market data:", e)
+        return last_snapshot if last_snapshot else {
+            "Sensex": "N/A",
+            "Nifty": "N/A",
+            "USD/INR": "N/A"
+        }
+
+@app.route("/api/market_snapshot")
+def market_snapshot():
+    return jsonify(get_market_snapshot())
+
+
+# ---- Nifty Ticker ---- #
+last_ticker_data = []
+
+@app.route("/api/nifty_ticker")
+def nifty_ticker():
+    global last_ticker_data
+    try:
+        if is_market_open():
+            # Fetch only during market hours
+            data = yf.download(
+                tickers=nifty_50,
+                period="2d",
+                interval="1m",
+                group_by='ticker',
+                threads=True,
+                progress=False
+            )
+
+            result = []
+            for symbol in nifty_50:
+                try:
+                    # Handle dict or multi-index DataFrame
+                    if isinstance(data, dict):
+                        hist = data.get(symbol)
+                    else:
+                        hist = data.loc[:, (symbol, "Close")] if (symbol, "Close") in data.columns else None
+                        if hist is not None:
+                            hist = hist.dropna()
+
+                    if hist is not None and len(hist) >= 2:
+                        prev = hist.iloc[-2]
+                        latest = hist.iloc[-1]
+                        change = round(latest - prev, 2)
+                        arrow = "▲" if change > 0 else "▼" if change < 0 else ""
+                        color = "green" if change > 0 else "red" if change < 0 else "white"
+
+                        result.append({
+                            "symbol": symbol.split('.')[0],
+                            "price": float(latest),
+                            "change": float(change),
+                            "arrow": arrow,
+                            "color": color
+                        })
+                except Exception as inner_e:
+                    print(f"Error processing {symbol}: {inner_e}")
+
+            # ✅ Save fresh snapshot while open
+            if result:
+                last_ticker_data = result
+            return jsonify(result if result else last_ticker_data)
+
+        else:
+            # ✅ After 3:30 → return last known values (frozen)
+            return jsonify(last_ticker_data if last_ticker_data else [])
+
+    except Exception as e:
+        print("Error fetching Nifty data:", e)
+        return jsonify(last_ticker_data if last_ticker_data else [])
+
 
 def get_stock_data(ticker, start_date):
     end_date = datetime.now().strftime('%Y-%m-%d')

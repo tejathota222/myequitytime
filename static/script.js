@@ -95,3 +95,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+
+
+function animateTicker() {
+    if (!tickerContent) return;
+
+    scrollPos -= 0.01; // super slow, readable
+    if (Math.abs(scrollPos) >= tickerDiv.scrollWidth / 2) scrollPos = 0;
+
+    tickerDiv.style.transform = `translateX(${scrollPos}px)`;
+
+    requestAnimationFrame(animateTicker);
+}
+
+// Start ticker
+fetchTickerData();                     // initial fetch
+setInterval(fetchTickerData, 15000);  // refresh every 15s without jumping
+animateTicker();
