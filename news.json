@@ -1,27 +1,82 @@
 [
   {
     "id": 1,
-    "title": "Sensex Drops 300 Points Amid Global Cues",
-    "summary": "Indian markets opened lower as global uncertainty continues.",
-    "content": "Full detailed article about Sensex movement, market reaction, expert views...",
-    "date": "2025-09-23",
-    "image": "/static/images/sensex.jpg"
+    "title": "Tata Consultancy Services (TCS): Leading IT Innovation and Digital Growth",
+    "summary": "TCS continues strong growth with digital transformation and AI solutions.",
+    "content": "TCS, India’s premier IT services provider, continues to demonstrate strong growth through its focus on digital transformation, cloud computing, and AI-powered solutions.\nWith a diverse client portfolio across banking, retail, and manufacturing, TCS reduces sector-specific risk while enhancing global competitiveness. Recent contract wins in North America and Europe highlight TCS’s capability to deliver complex IT solutions and maintain a robust order book.\nInvestments in emerging technologies, such as AI, machine learning, and analytics, have bolstered TCS’s service offerings. Its enterprise cloud solutions and automation platforms have gained traction with clients seeking rapid digital adoption. Moreover, the company’s strategic reskilling initiatives ensure employees remain capable of delivering advanced solutions, reinforcing TCS’s reputation as a technology leader.\nFinancially, TCS exhibits strong revenue growth and stable profit margins. Analysts predict sustained stock performance due to continued demand for digital transformation services. With global expansion plans and innovative offerings, TCS remains a key choice for long-term investors seeking stability, innovation, and consistent returns in the IT sector.",
+    "date": "2025-10-02",
+    "image": "/static/images/TCS.jpg"
   },
   {
     "id": 2,
-    "title": "Nifty 50 Sees Tech Sector Rally",
-    "summary": "Tech stocks lead gains with Infosys and TCS outperforming.",
-    "content": "In-depth analysis of tech rally, reasons behind surge, investor outlook...",
-    "date": "2025-09-22",
-    "image": "/static/images/nifty.jpg"
+    "title": "Reliance Industries Limited (RIL): Diversified Conglomerate Driving Growth",
+    "summary": "Reliance shows strong performance in telecom, retail, and energy.",
+    "content": "Reliance Industries continues to show remarkable growth across its telecom, retail, and energy segments.\nJio Platforms is expanding its 5G services, attracting new subscribers and offering innovative digital solutions. Reliance Retail benefits from strong consumer spending, particularly during festival seasons, and continues to expand its footprint across India.\nIn energy, Reliance is advancing in petrochemicals and renewable projects, maintaining a diversified revenue base. Strategic partnerships and investments in technology have enhanced operational efficiency and sustainability goals.\nFinancial results show strong revenue growth and profitability, driving investor confidence. Analysts expect continued outperformance due to its integrated approach across multiple sectors, solidifying Reliance’s position as one of India’s most influential conglomerates.",
+    "date": "2025-10-02",
+    "image": "/static/images/r.jpg"
   },
   {
     "id": 3,
-    "title": "Nifty 50 Sees Tech Sector Rally",
-    "summary": "Tech stocks lead gains with Infosys and TCS outperforming.",
-    "content": "In-depth analysis of tech rally, reasons behind surge, investor outlook...",
-    "date": "2025-09-22",
-    "image": "/static/images/nifty.jpg"}
-
+    "title": "Infosys: Expanding Global IT Footprint",
+    "summary": "Infosys strengthens presence in digital banking, AI, and cloud computing.",
+    "content": "Infosys has reinforced its global presence with a focus on digital banking, AI, and cloud computing solutions.\nThe company recently secured key contracts in Europe and North America, providing end-to-end digital transformation services to major banks and enterprises. Its AI and analytics-driven platforms help clients optimize operations and improve customer experience.\nInfosys invests heavily in employee reskilling and technology innovation, ensuring it maintains a competitive edge in a rapidly evolving IT landscape. Its commitment to sustainability and ethical practices further enhances corporate reputation.\nFinancially, Infosys continues to post steady revenue growth and maintains robust profit margins. Analysts forecast consistent long-term performance, driven by global expansion, strategic partnerships, and continued demand for advanced IT solutions.",
+    "date": "2025-10-02",
+    "image": "/static/images/static/images/Infosys.jpeg"
+  },
+  {
+    "id": 4,
+    "title": "HDFC Bank: Consistent Growth Amid Digital Transformation",
+    "summary": "HDFC Bank maintains strong performance with retail and corporate banking.",
+    "content": "HDFC Bank remains a leader in India’s banking sector through consistent growth and digital innovation.\nThe bank continues to expand its retail banking portfolio, offering innovative loans, credit cards, and digital payment solutions. Corporate banking also remains strong, supporting small, medium, and large enterprises.\nDigital transformation initiatives, including mobile banking enhancements, AI-driven customer support, and automated risk management systems, have improved efficiency and client satisfaction.\nFinancial performance is robust, with stable revenue growth and healthy profit margins. Analysts expect HDFC Bank to continue outperforming peers due to prudent risk management, innovative services, and expanding customer base, making it a preferred choice for investors.",
+    "date": "2025-10-02",
+    "image": "/static/images/hdfc.jpg"
+  },
+  {
+    "id": 5,
+    "title": "ICICI Bank: Expanding Digital Services and Financial Reach",
+    "summary": "ICICI Bank focuses on technology-driven banking and lending solutions.",
+    "content": "ICICI Bank has strengthened its digital banking capabilities, providing convenient, secure, and scalable services to millions of customers.\nRetail lending, including personal, home, and auto loans, continues to grow, while corporate banking supports businesses across sectors. The bank’s AI-powered platforms improve credit assessment and customer engagement.\nICICI Bank’s investments in cybersecurity, digital onboarding, and mobile-first solutions enhance user experience and operational efficiency. Strategic collaborations with fintechs further drive innovation.\nFinancial results reflect consistent revenue growth and profitability. Analysts project sustained long-term performance due to digital adoption, diversified offerings, and strong corporate governance, positioning ICICI Bank as a resilient and innovative financial institution.",
+    "date": "2025-10-02",
+    "image": "/static/images/icici.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Hindustan Unilever Limited (HUL): Consumer Goods Powerhouse",
+    "summary": "HUL continues to grow with strong FMCG portfolio and marketing strategy.",
+    "content": "Hindustan Unilever Limited (HUL) maintains leadership in the Indian FMCG sector through innovative products and strong marketing.\nIts portfolio spans personal care, home care, and food & beverages, driving consistent consumer demand. New product launches and digital campaigns enhance brand engagement.\nHUL invests in sustainable sourcing, eco-friendly packaging, and community initiatives, aligning with ESG standards. Operational efficiencies and supply chain optimization reduce costs and improve margins.\nFinancially, the company posts steady revenue growth and profitability. Analysts expect continued market leadership due to strong brand equity, innovation, and consumer loyalty, making HUL a solid choice for investors seeking stable returns in FMCG.",
+    "date": "2025-10-02",
+    "image": "/static/images/static/images/Hindustan Unilever.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Bajaj Finance: Leading Consumer Finance and Lending Solutions",
+    "summary": "Bajaj Finance leverages technology for consumer lending and growth.",
+    "content": "Bajaj Finance has emerged as a dominant player in consumer lending, personal finance, and SME loans.\nThe company uses digital platforms to streamline loan approvals, customer onboarding, and risk management. Its EMI financing and wealth management products attract retail clients.\nTechnological innovations, including AI-based credit scoring and predictive analytics, improve portfolio quality and customer experience. Strategic partnerships with e-commerce and fintech companies further expand reach.\nFinancially, Bajaj Finance exhibits strong revenue growth, healthy margins, and low default rates. Analysts forecast sustained performance driven by digital adoption, diverse offerings, and effective risk management, making it a key player in India’s financial services landscape.",
+    "date": "2025-10-02",
+    "image": "/static/images/bajaj.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Kotak Mahindra Bank: Strong Retail and Corporate Banking Focus",
+    "summary": "Kotak Mahindra Bank maintains growth with digital banking initiatives.",
+    "content": "Kotak Mahindra Bank continues to deliver strong growth through retail and corporate banking services.\nRetail offerings include loans, savings accounts, and credit cards, while corporate banking provides customized solutions to businesses of all sizes. Digital adoption drives convenience and efficiency.\nInvestments in mobile banking, AI-assisted customer support, and automated risk management strengthen operations. Strategic fintech partnerships further enhance innovation.\nFinancially, the bank posts stable revenue growth and profitability. Analysts anticipate continued performance improvement due to digital leadership, prudent risk practices, and expanding customer base, positioning Kotak Mahindra Bank as a reliable investment choice.",
+    "date": "2025-10-02",
+    "image": "/static/images/kotak.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Larsen & Toubro (L&T): Infrastructure and Engineering Excellence",
+    "summary": "L&T continues large-scale projects and engineering innovations.",
+    "content": "Larsen & Toubro (L&T) remains a leader in infrastructure, construction, and engineering services in India and abroad.\nThe company executes major projects in power, transportation, and urban development while expanding into renewable energy and defense segments. Its engineering expertise ensures timely and cost-effective project delivery.\nTechnological innovation, modular construction techniques, and sustainable practices enhance operational efficiency. Strategic partnerships and international expansion improve market presence.\nFinancial results show stable revenue growth and robust order book. Analysts expect continued success driven by engineering excellence, diversified portfolio, and infrastructure demand, positioning L&T as a critical player in India’s development story.",
+    "date": "2025-10-02",
+    "image": "/static/images/static/images/l-t-construction.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Maruti Suzuki: Automotive Market Leader Driving Innovation",
+    "summary": "Maruti Suzuki expands EV portfolio and strengthens market share.",
+    "content": "Maruti Suzuki continues to dominate India’s automotive market through innovation, wide product range, and customer focus.\nThe company is expanding its electric vehicle (EV) portfolio and modernizing manufacturing facilities to meet changing demand. Strong sales of compact and mid-size cars maintain market leadership.\nTechnological advancements in safety, fuel efficiency, and infotainment enhance customer satisfaction. Strategic tie-ups with suppliers and tech partners support EV adoption and operational efficiency.\nFinancially, Maruti Suzuki demonstrates steady revenue growth and healthy margins. Analysts expect continued market dominance driven by innovation, brand loyalty, and evolving product portfolio, making it a compelling choice for automotive investors.",
+    "date": "2025-10-02",
+    "image": "/static/images/maruti.jpg"
+  }
 ]
-
