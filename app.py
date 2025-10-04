@@ -1,5 +1,5 @@
 import json, os, time, io
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file,abort
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, time as dtime
@@ -9,7 +9,6 @@ from flask import Response
 import json
 import time
 import pytz
-
 
 app = Flask(__name__)
 
@@ -28,34 +27,77 @@ def load_sidebar():
         return json.load(f)
 
 # ---------------- Utility ---------------- #
-def load_news():
-    if not os.path.exists(NEWS_FILE):
-        return []
-    with open(NEWS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+with open("news.json", "r", encoding="utf-8") as f:
+    news_data = json.load(f)
+
+def get_all_news_items():
+    """Flatten all news and nested images into a single list"""
+    items = []
+    for n in news_data:
+        if n["type"] == "square":
+            items.append({
+                "id": n["id"],
+                "title": n["title"],
+                "summary": n.get("summary", ""),
+                "image": n.get("image", ""),
+                "likes": n.get("likes", 0),
+                "views": n.get("views", 0)
+            })
+            if "images" in n:
+                for img in n["images"]:
+                    items.append({
+                        "id": img["id"],
+                        "title": img.get("title", ""),
+                        "summary": img.get("summary", ""),
+                        "image": img.get("src", ""),
+                        "likes": img.get("likes", 0),
+                        "views": img.get("views", 0)
+                    })
+        elif n["type"] == "rectangle" and "images" in n:
+            for img in n["images"]:
+                items.append({
+                    "id": img["id"],
+                    "title": img.get("title", ""),
+                    "summary": img.get("summary", ""),
+                    "image": img.get("src", ""),
+                    "likes": img.get("likes", 0),
+                    "views": img.get("views", 0)
+                })
+    return items
+
+def load_content(news_id):
+    """Read content from corresponding txt file"""
+    filepath = os.path.join("content", f"{news_id}.txt")
+    if os.path.exists(filepath):
+        with open(filepath, "r", encoding="utf-8") as f:
+            return f.read()
+    return "Content not found."
+
 
 # ---------------- Home / News ---------------- #
 @app.route("/")
 def home():
-    news = load_news()
     sidebar = load_sidebar()
-    sidebar["market_snapshot"] = get_market_snapshot()
-    return render_template("home.html", news=news, sidebar=sidebar)
+    carousel_images = [
+        n.get("image", n["images"][0]["src"] if "images" in n and n["images"] else None)
+        for n in news_data
+        if n["type"] == "square"
+    ]
+    carousel_images = [img for img in carousel_images if img][:3]
+    return render_template("home.html", news=news_data, images=carousel_images,sidebar=sidebar)
 
 @app.route("/news/<int:news_id>")
-def show_news(news_id):
-    news = load_news()
-    article = next((n for n in news if n["id"] == news_id), None)
-    if not article:
-        return "News not found", 404
-    likes = LIKES.get(news_id, 0)
+def news_detail(news_id):
     sidebar = load_sidebar()
-    return render_template("news.html",news=news, article=article, likes=likes, sidebar=sidebar)
+    all_items = get_all_news_items()
+    news_item = next((item for item in all_items if item["id"] == news_id), None)
+    if not news_item:
+        abort(404)
+    # Load full content from txt
+    news_item["content"] = load_content(news_id)
+    return render_template("news.html", article=news_item, news=news_data, likes=news_item.get("likes", 0),sidebar=sidebar)
 
-@app.route("/like/<int:news_id>", methods=["POST"])
-def like_news(news_id):
-    LIKES[news_id] = LIKES.get(news_id, 0) + 1
-    return jsonify({"likes": LIKES[news_id]})
+
 
 nifty_50 = [
     "ADANIENT.NS", "ADANIPORTS.NS", "APOLLOHOSP.NS", "ASIANPAINT.NS", "AXISBANK.NS",

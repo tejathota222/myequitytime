@@ -161,16 +161,18 @@ async function fetchTickerData() {
         const stocks = await res.json();
 
         if (!stocks || stocks.length === 0) {
-            // No new data, keep last values (do not overwrite)
+            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST on MONDAY";
             return;
         }
 
-        // Use stocks with price > 0 if available, else fallback to all stocks
         const validStocks = stocks.filter(stock => typeof stock.price === "number" && stock.price > 0);
-        const displayStocks = validStocks.length > 0 ? validStocks : stocks;
+        if (validStocks.length === 0) {
+            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST on MONDAY";
+            return;
+        }
 
-        tickerParts = displayStocks.map(stock => {
-            let price = (stock.price && stock.price > 0) ? stock.price.toFixed(2) : "–";
+        tickerParts = validStocks.map(stock => {
+            let price = stock.price.toFixed(2);
             let change = (typeof stock.change === "number" && !isNaN(stock.change)) ? stock.change.toFixed(2) : "–";
             let arrow = stock.arrow || "";
             let color = stock.color || "white";
@@ -180,9 +182,10 @@ async function fetchTickerData() {
         tickerDiv.innerHTML = tickerParts.join("  |  ") + "  |  " + tickerParts.join("  |  ");
     } catch (err) {
         console.error("Ticker fetch error:", err);
-        // Keep last values, do not overwrite
+        tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST ON MONDAY";
     }
 }
+
 
 fetchTickerData();
 setInterval(fetchTickerData, 30000);

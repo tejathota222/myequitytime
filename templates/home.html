@@ -1,23 +1,75 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>MY EQUITY TIME</h1>
-<h2>One place for analysis 📊</h2>
 
-{% for n in news %}
-<div class="news-card">
-    {% if n['image'] %}
-    <div class="news-image">
-        <img src="{{ n['image'] }}" alt="{{ n['title'] }}">
-    </div>
-    {% endif %}
-    <div class="news-content">
-        <h3><a href="{{ url_for('show_news', news_id=n['id']) }}">{{ n['title'] }}</a></h3>
-        <p><strong>{{ n['date'] }}</strong> – {{ n['summary'] }}</p>
-    </div>
-</div>
-{% else %}
-<p>No news available.</p>
-{% endfor %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+/* Any specific home.css overrides, e.g., for your carousel/grid */
+.top-carousel, .grid {
+    max-width: 900px;  /* center and fit content area */
+    margin: 0 auto;
+}
+</style>
 {% endblock %}
+
+{% block content %}
+<!-- Top Auto-Sliding Banner -->
+<div class="top-carousel">
+    <div class="slide"><img src="{{ url_for('static', filename='images/maruti.jpg') }}"></div>
+    <div class="slide"><img src="{{ url_for('static', filename='images/Hindustan.jpg') }}"></div>
+    <div class="slide"><img src="{{ url_for('static', filename='images/kotak.jpg') }}"></div>
+</div>
+
+<div class="grid">
+    {% for n in news %}
+        {% if n.type == "square" %}
+            {% if n.images %}
+            <!-- 🔹 Sliding Square -->
+            <div class="square-carousel">
+                {% for imgObj in n.images %}
+                <div class="square-slide">
+                    <img src="{{ url_for('static', filename=imgObj.src) }}" alt="{{ imgObj.title }}">
+                    <div class="square-title">
+                        <a href="{{ url_for('news_detail', news_id=imgObj.id) }}" style="color: #fff; text-decoration: underline;">
+                        {{ imgObj.title }}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- 🔹 Static Square -->
+            <a href="{{ url_for('news_detail', news_id=n.id) }}" class="card">
+                <img src="{{ url_for('static', filename=n.image) }}" alt="{{ n.title }}">
+                <div class="card-body">
+                    <h3>{{ n.title }}</h3>
+                    <p>{{ n.summary }}</p>
+                    <div class="card-stats">
+                        ❤️ {{ n.likes }} &nbsp; 👁️ {{ n.views }}
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+
+        {% elif n.type == "rectangle" %}
+            <!-- 🔹 Rectangle Banner -->
+            <div class="rectangle-carousel">
+                {% for imgObj in n.images %}
+                <div class="rect-slide">
+                    <img src="{{ url_for('static', filename=imgObj.src) }}" alt="{{ imgObj.title }}">
+                    <div class="rect-title">
+                        <a href="{{ url_for('news_detail', news_id=imgObj.id) }}" style="color: #fff; text-decoration: underline;">
+                            {{ imgObj.title }}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
+
 
 

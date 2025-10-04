@@ -1,3 +1,95 @@
+// 🔹 Top banner auto-slide (slide left)
+document.querySelectorAll(".top-carousel").forEach(carousel => {
+  const slides = carousel.querySelectorAll(".slide");
+  const total = slides.length;
+  let index = 0;
+
+  // Wrap slides in a flex container
+  const wrapper = document.createElement("div");
+  wrapper.style.display = "flex";
+  wrapper.style.width = `${total * 100}%`;
+  wrapper.style.transition = "transform 0.8s ease-in-out";
+  wrapper.style.height = "100%";
+
+  slides.forEach(slide => {
+    slide.style.width = `${100 / total}%`;
+    slide.style.display = "block";
+    slide.style.position = "relative";
+    wrapper.appendChild(slide);
+  });
+
+  carousel.innerHTML = "";
+  carousel.appendChild(wrapper);
+
+  setInterval(() => {
+    index = (index + 1) % total;
+    wrapper.style.transform = `translateX(-${index * (100 / total)}%)`;
+  }, 3000);
+});
+
+// 🔹 Rectangle carousel (slide left)
+document.querySelectorAll(".rectangle-carousel").forEach(carousel => {
+  const rSlides = carousel.querySelectorAll(".rect-slide");
+  const total = rSlides.length;
+  let rIndex = 0;
+
+  // Wrap all slides in a container for smooth transform
+  const wrapper = document.createElement("div");
+  wrapper.style.display = "flex";
+  wrapper.style.width = `${total * 100}%`;
+  wrapper.style.transition = "transform 0.8s ease-in-out";
+  wrapper.style.height = "100%";
+  
+  rSlides.forEach(slide => {
+    slide.style.width = `${100 / total}%`;
+    slide.style.display = "block"; // override absolute
+    slide.style.position = "relative";
+    wrapper.appendChild(slide);
+  });
+  carousel.innerHTML = "";
+  carousel.appendChild(wrapper);
+
+  setInterval(() => {
+    rIndex = (rIndex + 1) % total;
+    wrapper.style.transform = `translateX(-${rIndex * (100 / total)}%)`;
+  }, 4000);
+});
+
+// 🔹 Square carousel (slide left)
+document.querySelectorAll(".square-carousel").forEach(carousel => {
+  const sSlides = carousel.querySelectorAll(".square-slide");
+  const total = sSlides.length;
+  let sIndex = 0;
+
+  const wrapper = document.createElement("div");
+  wrapper.style.display = "flex";
+  wrapper.style.width = `${total * 100}%`;
+  wrapper.style.transition = "transform 0.8s ease-in-out";
+  wrapper.style.height = "100%";
+
+  sSlides.forEach(slide => {
+    slide.style.width = `${100 / total}%`;
+    slide.style.display = "block";
+    slide.style.position = "relative";
+    wrapper.appendChild(slide);
+  });
+
+  carousel.innerHTML = "";
+  carousel.appendChild(wrapper);
+
+  setInterval(() => {
+    sIndex = (sIndex + 1) % total;
+    wrapper.style.transform = `translateX(-${sIndex * (100 / total)}%)`;
+  }, 4000);
+});
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // ----------------- Plotly Charts -----------------
     fetch('/api/nifty_data')
@@ -112,3 +204,4 @@ function animateTicker() {
 fetchTickerData();                     // initial fetch
 setInterval(fetchTickerData, 15000);  // refresh every 15s without jumping
 animateTicker();
+

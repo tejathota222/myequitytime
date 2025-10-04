@@ -1,119 +1,170 @@
 {% extends "base.html" %}
 
-{% block extra_head %}
-<style>
-/* ---------- Article Section ---------- */
-.news-article {
-    max-width: 800px;
-    margin: 40px auto 60px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-.news-article img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 15px;
-}
-.news-article h2 {
-    font-size: 1.8rem;
-    margin: 10px 0;
-}
-.news-article p em {
-    color: #555;
-    font-size: 0.9rem;
-}
-.news-content-article {
-    max-height: 250px;
-    overflow-y: auto;
-    padding-right: 10px;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-}
-.news-content-article::-webkit-scrollbar {
-    width: 6px;
-}
-.news-content-article::-webkit-scrollbar-thumb {
-    background: #aaa;
-    border-radius: 5px;
-}
-
-/* ---------- Like Button ---------- */
-#likeBtn {
-    margin-top: 15px;
-    padding: 8px 16px;
-    border: none;
-    background: #007bff;
-    color: white;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-#likeBtn:hover {
-    background: #0056b3;
-}
-
-/* ---------- More News Container ---------- */
-.other-news {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 15px;
-}
-.other-news h2 {
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-}
-.card-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-</style>
-{% endblock %}
-
 {% block content %}
-<!-- ---------- Main Article ---------- -->
-<div class="news-article">
-    <img src="{{ article['image'] }}" alt="{{ article['title'] }}">
-    <h2>{{ article['title'] }}</h2>
-    <p><em>{{ article['date'] }}</em></p>
-    <div class="news-content-article">
-        <p>{{ article['content'] }}</p>
+<div class="content-wrapper">
+    <!-- ---------- Main Article ---------- -->
+    <div class="news-article">
+        <img src="{{ url_for('static', filename=article['image']) }}" alt="{{ article['title'] }}">
+        <h2>{{ article['title'] }}</h2>
+
+        {% if article.summary %}
+        <p><em>{{ article['summary'] }}</em></p>
+        {% endif %}
+
+        <div class="news-content-article">
+            {% for paragraph in article['content'].split('\n\n') %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
+
+        <button id="likeBtn">👍 Like (<span id="likeCount">{{ likes }}</span>)</button>
     </div>
 
-    <button id="likeBtn">👍 Like (<span id="likeCount">{{ likes }}</span>)</button>
-</div>
-
-<!-- ---------- Other News Cards ---------- -->
-<div class="other-news">
-    <h2>📰 More News</h2>
-    <div class="card-container">
-        {% for n in news if n['id'] != article['id'] %}
-        <a href="{{ url_for('show_news', news_id=n['id']) }}" class="news-card">
-            <div class="news-image">
-                <img src="{{ n['image'] }}" alt="{{ n['title'] }}">
-            </div>
-            <div class="news-content">
-                <h3><a href="{{ url_for('show_news', news_id=n['id']) }}">{{ n['title'] }}</a></h3>
-                <p>{{ n['summary'] }}</p>
-            </div>
-        </a>
+    <!-- ---------- More News (Rectangular Cards) ---------- -->
+    <div class="more-news">
+        <h3>📰 More News</h3>
+        {% for n in news %}
+            {% if n['id'] != article['id'] %}
+            <a href="{{ url_for('news_detail', news_id=n['id']) }}" class="more-news-card">
+                <img src="{{ url_for('static', filename=n['image']) }}" alt="{{ n['title'] }}">
+                <div class="info">
+                    <h4>{{ n['title'] }}</h4>
+                    <p>{{ n['summary'] }}</p>
+                </div>
+            </a>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
 
-<!-- ---------- Like Button JS ---------- -->
 <script>
 document.getElementById("likeBtn").onclick = () => {
-    fetch("/like/{{ article['id'] }}", {method:"POST"})
-    .then(r => r.json())
-    .then(d => document.getElementById("likeCount").textContent = d.likes);
+    const likeCountElem = document.getElementById("likeCount");
+    let currentLikes = parseInt(likeCountElem.textContent);
+    likeCountElem.textContent = currentLikes + 1;
+    const btn = document.getElementById("likeBtn");
+    btn.style.background = "#28a745";
+    btn.textContent = "👍 Liked (" + (currentLikes + 1) + ")";
 };
 </script>
+
+<style>
+/* ---------- Override Base Layout ---------- */
+.content-area {
+  display: block !important;
+  padding: 20px !important;
+}
+
+/* ---------- Content Wrapper ---------- */
+.content-wrapper {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  background: none !important;
+}
+
+/* ---------- Article ---------- */
+.news-article {
+  background: #fff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  padding: 20px !important;
+  margin-bottom: 40px !important;
+}
+.news-article img {
+  width: 100% !important;
+  border-radius: 12px !important;
+  margin-bottom: 15px !important;
+}
+.news-article h2 {
+  font-size: 1.8rem !important;
+  margin-bottom: 10px !important;
+}
+.news-content-article {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+  padding-right: 10px !important;
+}
+
+/* ---------- Like Button ---------- */
+#likeBtn {
+  margin-top: 15px !important;
+  padding: 8px 16px !important;
+  border: none !important;
+  background: #007bff !important;
+  color: white !important;
+  font-size: 1rem !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+}
+#likeBtn:hover {
+  background: #00b345 !important;
+}
+
+/* ---------- More News Section ---------- */
+.more-news {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+  width: 100% !important;
+}
+.more-news h3 {
+  font-size: 1.6rem !important;
+  color: #333 !important;
+  margin-bottom: 10px !important;
+}
+
+/* ---------- Rectangular Cards ---------- */
+.more-news-card {
+  display: flex !important;
+  align-items: center !important;
+  background: #fff !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  overflow: hidden !important;
+  transition: transform 0.2s ease !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+.more-news-card:hover {
+  transform: scale(1.02) !important;
+}
+.more-news-card img {
+  width: 180px !important;
+  height: 120px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+.more-news-card .info {
+  padding: 10px 15px !important;
+  flex: 1 !important;
+}
+.more-news-card .info h4 {
+  margin: 0 0 5px 0 !important;
+  font-size: 1.1rem !important;
+}
+.more-news-card .info p {
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+  color: #555 !important;
+}
+</style>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
