@@ -83,6 +83,60 @@ document.querySelectorAll(".square-carousel").forEach(carousel => {
   }, 4000);
 });
 
+async function loadTvTickerSide() {
+    try {
+        const res = await fetch("/static/data/sidebar.json");
+        const data = await res.json();
+        const images = data.news_24h_images || [];
+        const container = document.getElementById("tvTickerSide");
+        if (!container || images.length === 0) return;
+
+        const strip = document.createElement("div");
+        strip.className = "news-strip";
+        container.appendChild(strip);
+
+        let index = 0;
+        const displayDuration = 15000; // 5s per image
+
+        function showNextImage() {
+            const img = document.createElement("img");
+            img.src = `/static/images/${images[index]}`;
+            img.style.height = "100%";
+            img.style.width = "auto";
+            img.style.opacity = "0";
+            img.style.transition = "opacity 0.5s ease-in-out";
+
+            strip.innerHTML = "";
+            strip.appendChild(img);
+
+            // Add flicker effect
+            container.classList.add("tv-flicker");
+            setTimeout(() => container.classList.remove("tv-flicker"), 300); // flicker for 0.3s
+
+            // Fade in image
+            setTimeout(() => {
+                img.style.opacity = "1";
+            }, 50);
+
+            // Next image after displayDuration
+            setTimeout(() => {
+                index = (index + 1) % images.length;
+                showNextImage();
+            }, displayDuration);
+        }
+
+        showNextImage();
+
+    } catch (err) {
+        console.error("Error loading TV ticker:", err);
+    }
+}
+
+loadTvTickerSide();
+
+
+
+
 
 
 

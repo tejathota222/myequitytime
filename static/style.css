@@ -299,19 +299,115 @@ th {
 }
 
 
+.top-banner-wrapper {
+    display: flex;
+    gap: 10px; /* space between carousel and ticker */
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
 /* Top banner */
 .top-carousel {
-  width: 100%;
+  width: 70%;
   height: 300px;
   overflow: hidden;
   position: relative;
+  border-radius: 8px;
+  border: 5px solid #eee6e6;
 }
 .top-carousel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+
+/* TV ticker side panel */
+.tv-ticker-side {
+    width: 28%;
+    height: 300px;
+    background: #111;
+    border-radius: 12px;
+    border: 5px solid #333;
+    box-shadow: inset 0 0 15px #000, 0 0 10px #555;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Strip container */
+.tv-ticker-side .news-strip {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image style */
+.tv-ticker-side .news-strip img {
+    height: 100%;
+    width: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 2px solid #222;
+    flex-shrink: 0;
+    opacity: 0; /* start hidden for fade-in */
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* LIVE indicator */
+.tv-ticker-side .live-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #e74c3c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #e74c3c, 0 0 20px #e74c3c;
+    animation: liveBlink 1s infinite;
+    z-index: 2;
+}
+
+/* Blinking glow animation for LIVE indicator */
+@keyframes liveBlink {
+    0%, 50%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 10px #e74c3c, 0 0 20px #e74c3c;
+    }
+    25%, 75% {
+        opacity: 0.5;
+        box-shadow: 0 0 5px #e74c3c, 0 0 10px #e74c3c;
+    }
+}
+
+/* Flicker effect when image changes */
+@keyframes tvFlicker {
+    0% { opacity: 0.9; }
+    25% { opacity: 0.6; }
+    50% { opacity: 1; }
+    75% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.tv-ticker-side.tv-flicker {
+    animation: tvFlicker 0.3s linear;
+}
+
+
+
+
 .slide { display: none; }
+
+
 
 /* Grid */
 .grid {
@@ -326,6 +422,7 @@ th {
   position: relative;
   background: #232121;
   border-radius: 10px;
+  border: 5px solid #eee6e6;
   overflow: hidden;
   text-decoration: none;
   color: black;
@@ -448,3 +545,59 @@ th {
   color: #000; /* for static white cards */
   background: rgba(255,255,255,0.7);
 }
+/* 🔻 Continuous Vertical Scrolling News (Right Sidebar) */
+.scrolling-news {
+    position: relative;
+    overflow: hidden;
+    height: 500px; /* visible area */
+    background: #151414;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    color: #f1e7e7;
+    font-size: 14px;
+}
+
+.scrolling-wrapper {
+    position: absolute;
+    width: 100%;
+    animation: scrollUpContinuous 20s linear infinite;
+}
+
+.scrolling-news:hover .scrolling-wrapper {
+    animation-play-state: paused;
+}
+
+.scrolling-wrapper div {
+    padding: 2px 8px;
+}
+
+/* 🔁 Keyframes for smooth continuous scroll */
+@keyframes scrollUpContinuous {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+.quote-box {
+    height: 80px;          /* visible area for one quote */
+    overflow: hidden;      /* hide the rest */
+    position: relative;
+    background-color: #f9f9f9; /* optional: subtle background */
+    padding: 5px 10px;
+    border-left: 3px solid #0077cc; /* optional accent */
+}
+
+#quote {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    color: #0077cc;       /* make text visible and standout */
+    font-weight: 600;      /* slightly bold */
+    font-size: 0.95rem;    /* adjust as needed */
+}
+

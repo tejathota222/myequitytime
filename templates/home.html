@@ -12,11 +12,18 @@
 {% endblock %}
 
 {% block content %}
-<!-- Top Auto-Sliding Banner -->
-<div class="top-carousel">
-    <div class="slide"><img src="{{ url_for('static', filename='images/maruti.jpg') }}"></div>
-    <div class="slide"><img src="{{ url_for('static', filename='images/Hindustan.jpg') }}"></div>
-    <div class="slide"><img src="{{ url_for('static', filename='images/kotak.jpg') }}"></div>
+<div class="top-banner-wrapper">
+    <!-- Top carousel -->
+    <div class="top-carousel">
+        <div class="slide"><img src="{{ url_for('static', filename='images/gen1.jpg') }}"></div>
+        <div class="slide"><img src="{{ url_for('static', filename='images/gen2.jpg') }}"></div>
+    </div>
+
+    <!-- TV ticker on side -->
+    <div class="tv-ticker-side" id="tvTickerSide">
+         <div class="live-indicator">LIVE</div> 
+    </div>
+          
 </div>
 
 <div class="grid">

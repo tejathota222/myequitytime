@@ -44,10 +44,12 @@
     {% if sidebar is defined and sidebar %}
         <!-- Left Sidebar -->
         <aside class="sidebar left">
+            <div id="marketSnapshot">
             <h3>📈 Market Snapshot</h3>
             {% for k,v in sidebar['market_snapshot'].items() %}
                 <p>{{ k }}: {{ v }}</p>
             {% endfor %}
+            </div>
             <hr>
             <h3>🔔 Alerts</h3>
             <ul>
@@ -55,8 +57,73 @@
                     <li>{{ a }}</li>
                 {% endfor %}
             </ul>
+
+            <!-- Market Insights / Quote of the Day -->
+            <h3>💡 Market Insight</h3>
+            <div class="quote-box">
+              <p id="quote">{{ sidebar['quote'] }}</p>
+            </div>
+            <hr>
+
+            
+           <!-- Top Performer Highlight -->
+             <h3>🏆 Top Performer</h3>
+             <div class="top-performer">
+                <p><strong>{{ sidebar['top_performer']['name'] }}</strong></p>
+             <p>Change: {{ sidebar['top_performer']['change'] }}%</p>
+            </div>
+             <hr>
+            <!-- AI/ML & Data Science Solutions -->
+            <h3>🤖 AI / DS Solutions</h3>
+            <ul class="ai-ds-list">
+                  <li><a href="/ai-chatbot">💬 Projects Help</a></li>
+                  <li><a href="/ds-tutorials">📊 DS and AIML</a></li>
+                  <li><a href="/support">🛠 Help & Support</a></li>
+                <li><a href="/contact">📧 Contact Us</a></li>
+            </ul>
+            
         </aside>
-    {% endif %}
+        <hr>
+        <!-- Rotating Quote Script -->
+<script>
+fetch("/static/data/sidebar.json")
+  .then(res => res.json())
+  .then(sidebar => {
+      const quotes = sidebar.quotes_list;
+      let idx = 0;
+
+      const quoteEl = document.getElementById("quote");
+      
+      // Initial quote setup
+      quoteEl.innerText = quotes[idx];
+      quoteEl.style.position = "absolute";
+      quoteEl.style.top = "0px";
+      quoteEl.style.transition = "top 0.5s ease-in-out, opacity 0.5s ease-in-out";
+      quoteEl.style.opacity = 1;
+
+      // Loop quotes every 5s
+      setInterval(() => {
+          // slide up & fade out
+          quoteEl.style.top = "-60px"; // same as container height
+          quoteEl.style.opacity = 0;
+
+          setTimeout(() => {
+              // next quote
+              idx = (idx + 1) % quotes.length;
+              quoteEl.innerText = quotes[idx];
+              quoteEl.style.top = "0px";
+              quoteEl.style.opacity = 1;
+          }, 500); // matches transition duration
+      }, 5000); // change quote every 5s
+  })
+  .catch(err => console.error("Error loading sidebar:", err));
+</script>
+
+
+
+        
+
+{% endif %}
 
     <!-- Central Content -->
     <section class="content-area">
@@ -75,6 +142,12 @@
             <hr>
             <h3>💡 Analysis Tip</h3>
             <p>{{ sidebar['analysis_tip'] }}</p>
+            <hr>
+            <h3>🗞️ World News</h3>
+            <div class="scrolling-news" id="scrollingNews">
+              <!-- News lines will load here -->
+            </div>
+
         </aside>
     {% endif %}
 </main>
@@ -119,7 +192,7 @@ function updateMarketSnapshot() {
     fetch("/api/market_snapshot")
         .then(res => res.json())
         .then(data => {
-            const container = document.querySelector(".sidebar.left");
+            const container = document.querySelector("#marketSnapshot");
             if (!container) return;
 
             // Clear old content first
@@ -138,7 +211,7 @@ function updateMarketSnapshot() {
             }
 
             // 🔑 overwrite only the snapshot section
-            container.innerHTML = html + "<hr>" + container.innerHTML.split("<hr>")[1];
+            container.innerHTML = html;
         })
         .catch(err => {
             console.error("Snapshot fetch error:", err);
@@ -161,13 +234,13 @@ async function fetchTickerData() {
         const stocks = await res.json();
 
         if (!stocks || stocks.length === 0) {
-            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST on MONDAY";
+            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST ";
             return;
         }
 
         const validStocks = stocks.filter(stock => typeof stock.price === "number" && stock.price > 0);
         if (validStocks.length === 0) {
-            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST on MONDAY";
+            tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST ";
             return;
         }
 
@@ -182,7 +255,7 @@ async function fetchTickerData() {
         tickerDiv.innerHTML = tickerParts.join("  |  ") + "  |  " + tickerParts.join("  |  ");
     } catch (err) {
         console.error("Ticker fetch error:", err);
-        tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST ON MONDAY";
+        tickerDiv.innerHTML = "Market Closed – Updates resume at 9:15 AM IST";
     }
 }
 
@@ -194,6 +267,38 @@ setInterval(fetchTickerData, 30000);
 <footer style="text-align:center; padding:15px; background:#f2f2f2; margin-top:30px; font-size:0.9rem; color:#555;">
     &copy; {{ current_year if current_year else "2025" }} Myequitytime. All Rights Reserved.
 </footer>
+
+<script>
+// 🔄 Load text from your .txt file and scroll continuously
+async function loadScrollingNews() {
+    try {
+        const res = await fetch("/static/news.txt");
+        const text = await res.text();
+        const lines = text.split("\n").filter(l => l.trim() !== "");
+        const container = document.getElementById("scrollingNews");
+        if (!container) return;
+
+        // Create the scrolling wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "scrolling-wrapper";
+
+        // Duplicate the content twice for seamless looping
+        const content = lines.map(line => `<div>${line}</div>`).join("");
+        wrapper.innerHTML = content + content; // double copy
+
+        container.appendChild(wrapper);
+    } catch (err) {
+        console.error("Error loading news.txt:", err);
+    }
+}
+loadScrollingNews();
+</script>
+
+
+</script>
+
+
 </body>
 </html>
+
 
