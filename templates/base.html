@@ -2,8 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ title if title else "My Finance Site" }}</title>
+    <title>{{ title if title else "My Equity Time" }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='busil.jpg') }}" type="image/jpeg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "url": "https://www.myequitytime.com",
+      "logo": "https://www.myequitytime.com/static/busil.jpg",
+      "name": "My Equity Time"
+}
+</script>
 </head>
 <body>
 <nav>
