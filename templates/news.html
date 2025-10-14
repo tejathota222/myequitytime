@@ -11,10 +11,9 @@
         <p><em>{{ article['summary'] }}</em></p>
         {% endif %}
 
+         <!-- Full HTML content -->
         <div class="news-content-article">
-            {% for paragraph in article['content'].split('\n\n') %}
-                <p>{{ paragraph }}</p>
-            {% endfor %}
+            {{ html_content | safe }}
         </div>
 
         <button id="likeBtn">👍 Like (<span id="likeCount">{{ likes }}</span>)</button>
@@ -80,8 +79,8 @@ document.getElementById("likeBtn").onclick = () => {
   margin-bottom: 10px !important;
 }
 .news-content-article {
-  max-height: 250px !important;
-  overflow-y: auto !important;
+  max-height: none !important; /* remove height limit */
+  overflow-y: visible !important; /* no scroll */
   font-size: 1.1rem !important;
   line-height: 1.6 !important;
   padding-right: 10px !important;
