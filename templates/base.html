@@ -32,7 +32,7 @@
     <a href="{{ url_for('home') }}" class="{% if active_page == 'news' %}active{% endif %}">📰 Latest News</a>
 
     <div class="dropdown">
-        <span class="dropbtn {% if active_page in ['stock', 'time', 'regression'] %}active{% endif %}">📊 Analysis ▾</span>
+        <span class="dropbtn analysis-btn {% if active_page in ['stock', 'time', 'regression'] %}active{% endif %}">📊 Analysis ▾</span>
         <div class="dropdown-content">
             <a href="{{ url_for('stock_analysis') }}" class="{% if active_page == 'stock' %}active{% endif %}">Stock Analysis</a>
             <a href="{{ url_for('time_series') }}" class="{% if active_page == 'time' %}active{% endif %}">Time Series Analysis</a>
@@ -42,6 +42,7 @@
     </div>
 
     <a href="{{ url_for('math_area') }}" class="{% if active_page == 'math' %}active{% endif %}">➗ Math Area</a>
+    <a href="{{ url_for('contact') }}" target="_blank" class="nav-contact-btn">📋 Contact</a>
 
 
     <!-- ⏳ Clock on the right -->

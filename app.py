@@ -321,6 +321,11 @@ def market_prediction():
 def math_area():
     return render_template("math.html")
 
+@app.route("/contact")
+def contact():
+    sidebar = load_sidebar()  # keep sidebar if needed
+    return render_template("contact.html", sidebar=sidebar)
+
 @app.route("/sitemap.xml", methods=["GET"])
 def sitemap():
     today = str(datetime.now().date())

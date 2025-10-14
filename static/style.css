@@ -48,13 +48,13 @@ nav a.active {
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); /* subtle inner shadow for classic feel */
 }
 
-/* Dropdown container */
+/* ---------------- Dropdown container ---------------- */
 nav .dropdown {
     display: inline-block;
     position: relative;
 }
 
-/* Dropdown button */
+/* ---------------- Dropdown button ---------------- */
 nav .dropbtn {
     color: #fff;
     padding: 8px 12px;
@@ -65,13 +65,13 @@ nav .dropbtn {
     box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
 }
 
-/* Hover for dropdown button */
+/* ---------------- Hover for dropdown button ---------------- */
 nav .dropbtn:hover {
     background: #333;
     box-shadow: 0 0 10px rgba(255,165,0,0.5);
 }
 
-/* Active dropdown */
+/* ---------------- Active dropdown ---------------- */
 nav .dropbtn.active {
     background: #ff9800;
     color: #111;
@@ -80,7 +80,31 @@ nav .dropbtn.active {
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
 }
 
-/* Dropdown content */
+/* ---------------- Unique Analysis dropdown button ---------------- */
+nav .dropbtn.analysis-btn {
+    font-weight: bold;
+    background: linear-gradient(270deg, #6a1b9a, #8e24aa, #ff5722, #ff9800);
+    background-size: 600% 600%;
+    animation: gradientAnimation 8s ease infinite;
+    color: #fff;
+    border: 1px solid transparent;
+    box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for Analysis */
+nav .dropbtn.analysis-btn:hover {
+    box-shadow: 0 0 12px rgba(255,165,0,0.6);
+}
+
+/* Gradient animation keyframes */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---------------- Dropdown content ---------------- */
 nav .dropdown-content {
     display: none;
     position: absolute;
@@ -114,6 +138,7 @@ nav .dropdown-content a:hover {
 nav .dropdown:hover .dropdown-content {
     display: block;
 }
+
 
 /* nav { 
     background:#222; 
@@ -196,7 +221,7 @@ main {
 }
 
 .popular-reads li:hover {
-    background: #948c9c; /* light purple background */
+    background: #8d2eed; /* light purple background */
     transform: translateX(3px);
 }
 
