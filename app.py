@@ -67,7 +67,7 @@ def get_all_news_items():
 
 def load_content(news_id):
     """Read content from corresponding txt file"""
-    filepath = os.path.join("content", f"{news_id}.txt")
+    filepath = os.path.join("content", f"{news_id}.html")
     if os.path.exists(filepath):
         with open(filepath, "r", encoding="utf-8") as f:
             return f.read()
@@ -94,8 +94,8 @@ def news_detail(news_id):
     if not news_item:
         abort(404)
     # Load full content from txt
-    news_item["content"] = load_content(news_id)
-    return render_template("news.html", article=news_item, news=news_data, likes=news_item.get("likes", 0),sidebar=sidebar)
+    html_content = load_content(news_id)
+    return render_template("news.html", article=news_item, html_content=html_content, news=news_data, likes=news_item.get("likes", 0),sidebar=sidebar)
 
 
 

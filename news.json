@@ -13,7 +13,7 @@
     "type": "square",
     "title": "Why This Village Worships Ravan",
     "summary": "A unique tradition where villagers worship Ravan instead of burning his effigy.",
-    "image": "images/icici.jpg",
+    "image": "images/icicii.jpg",
     "likes": 37,
     "views": 150
   },
@@ -24,7 +24,7 @@
     "images": [
       {
         "id": 1011,
-        "src": "images/kotak.jpg",
+        "src": "images/hdfi.jpg",
         "title": "Title for image 1",
         "summary": "Summary for image 1",
         "likes": 20,
@@ -32,7 +32,7 @@
       },
       {
         "id": 1012,
-        "src": "images/maruti.jpg",
+        "src": "images/marutir.jpg",
         "title": "Title for image 2",
         "summary": "Summary for image 2",
         "likes": 15,
@@ -40,7 +40,7 @@
       },
       {
         "id": 1013,
-        "src": "images/icici.jpg",
+        "src": "images/itc.jpg",
         "title": "Title for image 3",
         "summary": "Summary for image 3",
         "likes": 25,
@@ -55,7 +55,7 @@
     "type": "square",
     "title": "Rahul Gandhi spotted in Colombia",
     "summary": "Rahul Gandhi was seen on a Bajaj Pulsar during his visit to Colombia.",
-    "image": "images/maruti.jpg",
+    "image": "images/hindhu.jpg",
     "likes": 25,
     "views": 250
   },
@@ -64,7 +64,7 @@
     "type": "square",
     "title": "Tech stocks rally on Wall Street",
     "summary": "Major tech companies saw strong growth in stock prices today.",
-    "image": "images/bajaj.jpg",
+    "image": "images/sbi.jpg",
     "likes": 87,
     "views": 180
   },
@@ -76,7 +76,7 @@
     "images": [
       {
         "id": 1021,
-        "src": "images/r.jpg",
+        "src": "images/tcss.jpg",
         "title": "Reliance Industry",
         "summary": "Summary for square image 1",
         "likes": 5,
@@ -84,7 +84,7 @@
       },
       {
         "id": 1022,
-        "src": "images/maruti.jpg",
+        "src": "images/infosyss.jpg",
         "title": "Maruti Car Sales",
         "summary": "Summary for square image 2",
         "likes": 8,
@@ -92,7 +92,7 @@
       },
       {
         "id": 1023,
-        "src": "images/Hindustan.jpg",
+        "src": "images/lt.jpg",
         "title": "UNILEVER ",
         "summary": "Summary for square image 3",
         "likes": 12,
@@ -107,7 +107,7 @@
     "type": "square",
     "title": "Tech stocks rally on Wall Street",
     "summary": "Major tech companies saw strong growth in stock prices today.",
-    "image": "images/icici.jpg",
+    "image": "images/adani.jpg",
     "likes": 87,
     "views": 180
   },
@@ -118,7 +118,7 @@
     "images": [
       {
         "id": 1031,
-        "src": "images/Hindustan.jpg",
+        "src": "images/asianp.jpg",
         "title": "Hindustan",
         "summary": "Summary for image 1",
         "likes": 20,
@@ -126,7 +126,7 @@
       },
       {
         "id": 1032,
-        "src": "images/maruti.jpg",
+        "src": "images/adanie.jpg",
         "title": "Maruti Car Sales",
         "summary": "Summary for image 2",
         "likes": 15,
@@ -134,7 +134,377 @@
       },
       {
         "id": 1033,
-        "src": "images/icici.jpg",
+        "src": "images/bel.jpg",
+        "title": "icici bank",
+        "summary": "Summary for image 3",
+        "likes": 25,
+        "views": 250
+      }
+    ],
+    "likes": 60,
+    "views": 400
+  },
+  {
+    "id": 104,
+    "type": "rectangle",
+    "title": "Featured Square Story",
+    "images": [
+      {
+        "id": 1041,
+        "src": "images/bajaja.jpg",
+        "title": "Hindustan",
+        "summary": "Summary for image 1",
+        "likes": 20,
+        "views": 200
+      },
+      {
+        "id": 1042,
+        "src": "images/coal.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for image 2",
+        "likes": 15,
+        "views": 180
+      },
+      {
+        "id": 1043,
+        "src": "images/bajaj.jpg",
+        "title": "icici bank",
+        "summary": "Summary for image 3",
+        "likes": 25,
+        "views": 250
+      }
+    ],
+    "likes": 60,
+    "views": 400
+  },
+  {
+    "id": 6,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/hcl.jpg",
+    "likes": 87,
+    "views": 1800
+  },
+  {
+    "id": 7,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/indigo.jpg",
+    "likes": 568,
+    "views": 180
+  },
+  {
+    "id": 8,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/jsw.jpg",
+    "likes": 87,
+    "views": 180
+  },
+  {
+    "id": 9,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/kotak.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 105,
+    "type": "square",
+    "title": "Featured Square Story",
+
+    "images": [
+      {
+        "id": 1051,
+        "src": "images/nestle.jpg",
+        "title": "Reliance Industry",
+        "summary": "Summary for square image 1",
+        "likes": 5,
+        "views": 50
+      },
+      {
+        "id": 1052,
+        "src": "images/ntpc.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for square image 2",
+        "likes": 8,
+        "views": 70
+      },
+      {
+        "id": 1053,
+        "src": "images/ongc.jpg",
+        "title": "UNILEVER ",
+        "summary": "Summary for square image 3",
+        "likes": 12,
+        "views": 100
+      }
+    ],
+    "likes": 25,
+    "views": 220
+  },
+  {
+    "id": 10,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/power.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 11,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/sunp.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 12,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/titan.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 13,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/ultratech.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 106,
+    "type": "rectangle",
+    "title": "Featured Square Story",
+    "images": [
+      {
+        "id": 1061,
+        "src": "images/wipro.jpg",
+        "title": "WIPRO",
+        "summary": "Summary for image 1",
+        "likes": 20,
+        "views": 200
+      },
+      {
+        "id": 1062,
+        "src": "images/zomato.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for image 2",
+        "likes": 15,
+        "views": 180
+      },
+      {
+        "id": 1063,
+        "src": "images/grasim.jpg",
+        "title": "icici bank",
+        "summary": "Summary for image 3",
+        "likes": 25,
+        "views": 250
+      }
+    ],
+    "likes": 60,
+    "views": 400
+  },
+  {
+    "id": 14,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/techm.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 15,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/jio.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 16,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/jsw.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 17,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/eicher.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 18,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/dr.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 107,
+    "type": "rectangle",
+    "title": "Featured Square Story",
+    "images": [
+      {
+        "id": 1071,
+        "src": "images/cipla.jpg",
+        "title": "Hindustan",
+        "summary": "Summary for image 1",
+        "likes": 20,
+        "views": 200
+      },
+      {
+        "id": 1072,
+        "src": "images/hdfcl.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for image 2",
+        "likes": 15,
+        "views": 180
+      },
+      {
+        "id": 1073,
+        "src": "images/ntpc.jpg",
+        "title": "icici bank",
+        "summary": "Summary for image 3",
+        "likes": 25,
+        "views": 250
+      }
+    ],
+    "likes": 60,
+    "views": 400
+  },
+  {
+    "id": 19,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/maxh.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 20,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/nestle.jpg",
+    "likes": 101,
+    "views": 254
+  },
+   {
+    "id": 21,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/power.jpg",
+    "likes": 101,
+    "views": 254
+  },
+   {
+    "id": 22,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/sbilife.jpg",
+    "likes": 101,
+    "views": 254
+  },
+   {
+    "id": 23,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/shiram.jpg",
+    "likes": 101,
+    "views": 254
+  },
+   {
+    "id": 24,
+    "type": "square",
+    "title": "Tech stocks rally on Wall Street",
+    "summary": "Major tech companies saw strong growth in stock prices today.",
+    "image": "images/tcss.jpg",
+    "likes": 101,
+    "views": 254
+  },
+  {
+    "id": 108,
+    "type": "rectangle",
+    "title": "Featured Square Story",
+    "images": [
+      {
+        "id": 1081,
+        "src": "images/tatam.jpg",
+        "title": "Hindustan",
+        "summary": "Summary for image 1",
+        "likes": 20,
+        "views": 200
+      },
+      {
+        "id": 1082,
+        "src": "images/trent.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for image 2",
+        "likes": 15,
+        "views": 180
+      },
+      {
+        "id": 1083,
+        "src": "images/mahi.jpg",
+        "title": "icici bank",
+        "summary": "Summary for image 3",
+        "likes": 25,
+        "views": 250
+      }
+    ],
+    "likes": 60,
+    "views": 400
+  },
+  {
+    "id": 109,
+    "type": "rectangle",
+    "title": "Featured Square Story",
+    "images": [
+      {
+        "id": 1091,
+        "src": "images/shiram.jpg",
+        "title": "Hindustan",
+        "summary": "Summary for image 1",
+        "likes": 20,
+        "views": 200
+      },
+      {
+        "id": 1092,
+        "src": "images/ultratech.jpg",
+        "title": "Maruti Car Sales",
+        "summary": "Summary for image 2",
+        "likes": 15,
+        "views": 180
+      },
+      {
+        "id": 1093,
+        "src": "images/techm.jpg",
         "title": "icici bank",
         "summary": "Summary for image 3",
         "likes": 25,
