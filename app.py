@@ -321,6 +321,54 @@ def market_prediction():
 def math_area():
     return render_template("math.html")
 
+@app.route("/sitemap.xml", methods=["GET"])
+def sitemap():
+    today = str(datetime.now().date())
+
+    # Static pages
+    pages = [
+        {"loc": "/", "priority": 1.0, "lastmod": today},
+        {"loc": "/contact", "priority": 0.8, "lastmod": today},
+        {"loc": "/analysis", "priority": 0.7, "lastmod": today},
+        {"loc": "/time-series", "priority": 0.7, "lastmod": today},
+        {"loc": "/market-prediction", "priority": 0.7, "lastmod": today},
+        {"loc": "/math", "priority": 0.5, "lastmod": today},
+    ]
+
+    # Sidebar links
+    sidebar_links = ["/ai-chatbot", "/ds-tutorials", "/support"]
+    for link in sidebar_links:
+        pages.append({
+            "loc": link,
+            "priority": 0.6,
+            "lastmod": today
+        })
+
+    # All current news articles
+    all_news = get_all_news_items()
+    for article in all_news:
+        pages.append({
+            "loc": f"/news/{article['id']}",
+            "priority": 0.7,
+            "lastmod": article.get("date", today)
+        })
+
+    # Build XML
+    sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>'
+    sitemap_xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    for page in pages:
+        sitemap_xml += f"""
+<url>
+    <loc>{request.url_root[:-1]}{page['loc']}</loc>
+    <lastmod>{page['lastmod']}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>{page['priority']}</priority>
+</url>"""
+    sitemap_xml += "</urlset>"
+
+    return Response(sitemap_xml, mimetype="application/xml")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
