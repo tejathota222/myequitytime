@@ -76,6 +76,12 @@ def load_content(news_id):
 
 # ---------------- Home / News ---------------- #
 @app.route("/")
+def series_page():
+    sidebar = load_sidebar()     # <-- REQUIRED for left sidebar content
+    return render_template("home2.html", sidebar=sidebar)
+
+
+@app.route("/news")
 def home():
     sidebar = load_sidebar()
     carousel_images = [
