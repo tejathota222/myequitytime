@@ -81,16 +81,18 @@ def series_page():
     return render_template("home2.html", sidebar=sidebar)
 
 
-@app.route("/news")
+@app.route("/home")
 def home():
-    sidebar = load_sidebar()
-    carousel_images = [
-        n.get("image", n["images"][0]["src"] if "images" in n and n["images"] else None)
-        for n in news_data
-        if n["type"] == "square"
-    ]
-    carousel_images = [img for img in carousel_images if img][:3]
-    return render_template("home.html", news=news_data, images=carousel_images,sidebar=sidebar)
+     sidebar = load_sidebar()     # <-- REQUIRED for left sidebar content
+     return render_template("home2.html", sidebar=sidebar)
+    # sidebar = load_sidebar()
+    # carousel_images = [
+    #     n.get("image", n["images"][0]["src"] if "images" in n and n["images"] else None)
+    #     for n in news_data
+    #     if n["type"] == "square"
+    # ]
+    # carousel_images = [img for img in carousel_images if img][:3]
+    # return render_template("home.html", news=news_data, images=carousel_images,sidebar=sidebar)
 
 @app.route("/news/<int:news_id>")
 def news_detail(news_id):
